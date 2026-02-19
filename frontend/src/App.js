@@ -8,7 +8,8 @@ import Dashboard from "./pages/dashboard";
 import Office from "./pages/office";
 import Money from "./pages/money";
 import AI_SearchLayout from "./pages/ai_search";
-
+import { ThemeProvider } from "@mui/material/styles";
+import Theme from "./components/others/Theme";
 function App() {
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
@@ -40,16 +41,18 @@ function App() {
   // }, []);
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<AI_model />}>
-            <Route index element={<Dashboard />} />
-            <Route path="office" element={<Office />} />
-            <Route path="money" element={<Money />} />
-            <Route path="ai" element={<AI_SearchLayout />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <ThemeProvider theme={Theme}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<AI_model />}>
+              <Route index element={<Dashboard />} />
+              <Route path="office" element={<Office />} />
+              <Route path="money" element={<Money />} />
+              <Route path="ai" element={<AI_SearchLayout />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
     </div>
   );
 }

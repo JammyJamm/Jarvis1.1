@@ -13,6 +13,10 @@ import BusinessIcon from "@mui/icons-material/Business";
 import { Link, useLocation } from "react-router-dom";
 import Dashboard from "../../pages/dashboard";
 import { ReactComponent as DashboardIcon } from "../../icons/airplay.svg";
+import { ReactComponent as Money } from "../../icons/dollar-sign.svg";
+import { ReactComponent as Office } from "../../icons/briefcase.svg";
+import Logo from "../../assets/logo.png";
+import "./style.css";
 function Sidebar() {
   const location = useLocation();
 
@@ -26,16 +30,22 @@ function Sidebar() {
         borderRadius: "0px !important",
       }}
     >
-      <CardContent>
+      <ListItemButton sx={{ display: "flex", justifyContent: "center" }}>
+        <ListItemIcon sx={{ display: "flex", justifyContent: "center" }}>
+          <img src={Logo} alt="logo" className="logo" />
+        </ListItemIcon>
+      </ListItemButton>
+
+      <CardContent className="nav">
         <Link
           to="/"
           style={{ display: "flex", textDecoration: "none", color: "inherit" }}
         >
           <ListItemButton selected={location.pathname === "/"}>
-            <ListItemIcon>
+            <ListItemIcon className="icon">
               <DashboardIcon style={{ fill: "none" }} />
             </ListItemIcon>
-            <ListItemText primary="Dashboard" />
+            <ListItemText primary="Dashboard" className="linkname" />
           </ListItemButton>
         </Link>
 
@@ -44,8 +54,8 @@ function Sidebar() {
           style={{ display: "flex", textDecoration: "none", color: "inherit" }}
         >
           <ListItemButton selected={location.pathname === "/money"}>
-            <ListItemIcon>
-              <AccountBalanceWalletIcon />
+            <ListItemIcon className="icon">
+              <Money />
             </ListItemIcon>
             <ListItemText primary="Money" />
           </ListItemButton>
@@ -56,8 +66,8 @@ function Sidebar() {
           style={{ display: "flex", textDecoration: "none", color: "inherit" }}
         >
           <ListItemButton selected={location.pathname === "/office"}>
-            <ListItemIcon>
-              <BusinessIcon />
+            <ListItemIcon className="icon">
+              <Office />
             </ListItemIcon>
             <ListItemText primary="Office" />
           </ListItemButton>

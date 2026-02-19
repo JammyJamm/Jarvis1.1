@@ -1,0 +1,13 @@
+.logo {
+  height: 76px;
+}
+.nav .linkname {
+  font-size: 13px !important;
+}
+aside .Mui-selected {
+  color: #001327;
+  background-color: #eaebef !important;
+}
+.icon svg {
+  width: 18px;
+}
