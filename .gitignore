@@ -21,3 +21,12 @@ credentials.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+# ==============================
+# Python Backend
+# ==============================
+backend/.venv/
+backend/venv/
+backend/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/node_modules
