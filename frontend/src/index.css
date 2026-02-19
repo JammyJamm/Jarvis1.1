@@ -1,0 +1,82 @@
+body {
+  margin: 0;
+
+  font-family: Inter, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f5f6fa;
+}
+
+code {
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+.sideBar {
+  width: 19rem;
+}
+aside .Mui-selected {
+  background-color: #487fff !important;
+  color: #fff;
+}
+aside .MuiListItemButton-root {
+  border-radius: 3px;
+}
+aside .Mui-selected svg {
+  fill: #fff;
+}
+.chatResp {
+  background-color: #edf0f7 !important;
+  position: relative;
+  border-radius: 5px !important;
+  font-size: 14px !important;
+}
+.chatPrompt {
+  background-color: #487fff !important;
+  color: #fff !important;
+  position: relative;
+  border-radius: 5px !important;
+  font-size: 14px !important;
+}
+.chatPrompt::before {
+  content: "";
+  position: absolute;
+  bottom: 1px;
+  right: -15px;
+  width: 15px;
+  height: 20px;
+  z-index: 9;
+  border-radius: 0 0 0 20px;
+  background: #f5f6fa;
+}
+.chatPrompt::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: -9px;
+  width: 18px;
+  height: 15px;
+  background: #487fff;
+}
+.chatResp::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -15px;
+  width: 15px;
+  height: 20px;
+  z-index: 9;
+  border-radius: 0 0 20px 0;
+  background: #f5f6fa;
+}
+.chatResp::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -8px;
+  width: 15px;
+  height: 15px;
+  background: #edf0f7;
+}
+/* .Ai_Chat {
+  display: flex;
+} */
