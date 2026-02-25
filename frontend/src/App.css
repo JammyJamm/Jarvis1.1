@@ -91,3 +91,10 @@
   min-height: 42px !important;
   border-bottom: 1px dashed #eee !important;
 }
+/* // Common Css Starts  */
+.bdr_btm {
+  border-bottom: 1px solid rgb(229, 231, 235) !important;
+  border-radius: 0 !important;
+}
+
+/* // Common css ends  */

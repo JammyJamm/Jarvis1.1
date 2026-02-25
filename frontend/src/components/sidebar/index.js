@@ -15,22 +15,32 @@ import Dashboard from "../../pages/dashboard";
 import { ReactComponent as DashboardIcon } from "../../icons/airplay.svg";
 import { ReactComponent as Money } from "../../icons/dollar-sign.svg";
 import { ReactComponent as Office } from "../../icons/briefcase.svg";
-import Logo from "../../assets/logo.png";
+import Logo from "../../assets/logo1.png";
 import "./style.css";
+import Accordion from "@mui/material/Accordion";
+import AccordionActions from "@mui/material/AccordionActions";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 function Sidebar() {
   const location = useLocation();
 
   return (
     <Card
       sx={{
-        minWidth: "19rem",
+        minWidth: "17rem",
         height: "100%",
         borderRadius: "0px",
         // marginRight: "15px",
         borderRadius: "0px !important",
       }}
     >
-      <ListItemButton sx={{ display: "flex", justifyContent: "center" }}>
+      <ListItemButton
+        className="bdr_btm"
+        sx={{ display: "flex", justifyContent: "center" }}
+      >
         <ListItemIcon sx={{ display: "flex", justifyContent: "center" }}>
           <img src={Logo} alt="logo" className="logo" />
         </ListItemIcon>
@@ -57,6 +67,7 @@ function Sidebar() {
             <ListItemIcon className="icon">
               <Money />
             </ListItemIcon>
+
             <ListItemText primary="Money" />
           </ListItemButton>
         </Link>

@@ -9,7 +9,12 @@ function AI_model() {
   return (
     <div
       className="modelUI"
-      style={{ display: "flex", position: "fixed", bottom: "0px" }}
+      style={{
+        width: "100%",
+        display: "flex",
+        position: "fixed",
+        bottom: "0px",
+      }}
     >
       <aside style={{ height: "100vh" }}>
         <SideBar />
@@ -22,7 +27,7 @@ function AI_model() {
           width: "100%",
           display: "flex",
           justifyContent: "space-between",
-          flexDirection: "column",
+          flexDirection: "row",
         }}
       >
         <Outlet />
