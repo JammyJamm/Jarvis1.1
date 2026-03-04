@@ -21,6 +21,11 @@ import URLSearch from "../../pages/ai_search/urlSearch";
 import Box from "@mui/material/Box";
 import Drag from "../../icons/minus.svg";
 import AI_SearchLayout from "../../pages/ai_search";
+import Grid from "@mui/material/Grid";
+import Chip from "@mui/material/Chip";
+import Button from "@mui/material/Button";
+import Send from "../../icons/send.svg";
+
 const AI_Search = () => {
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
@@ -41,6 +46,7 @@ const AI_Search = () => {
       const combined = finalArray.map((item) => item.response).join("");
 
       setPromptResp(combined);
+      console.log(combined);
     } catch (err) {
       setPromptResp("Error: " + (err.response?.data?.detail || err.message));
     } finally {
@@ -85,6 +91,9 @@ const AI_Search = () => {
   }, []);
 
   // Draging Code Ends
+  // URL Code Starts
+  const [url, setUrl] = useState("");
+
   return (
     <div style={{ height: "100%" }}>
       <Paper
@@ -100,9 +109,46 @@ const AI_Search = () => {
           alignItems: "end",
           borderRadius: "0px",
           boxSizing: "border-box",
+          flexDirection: "column",
+          justifyContent: "space-between",
         }}
         onMouseDown={handleMouseMove}
       >
+        <Box component="form" sx={{ position: "relative", width: "100%" }}>
+          <InputBase
+            sx={{
+              ml: 1,
+              flex: 1,
+              width: "100%",
+              border: "1px solid #0d0d0d0d",
+              padding: "8px 16px",
+              margin: "0px",
+              borderRadius: "6px",
+              backgroundColor: "#edf0f7",
+            }}
+            value={url}
+            // onClick={() => navigate("./url")}
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="wanna control any website ..."
+          />
+          <Button
+            variant="contained"
+            sx={{
+              position: "absolute",
+              right: "10px",
+              top: "6px",
+            }}
+          >
+            <img
+              src={Send}
+              alt="send URL"
+              style={{
+                fill: "rgb(255, 255, 255)",
+                filter: "invert(1) brightness(256)",
+              }}
+            />
+          </Button>
+        </Box>
         <div
           style={{
             position: "absolute",
@@ -140,7 +186,36 @@ const AI_Search = () => {
           />
         </div>
         <Box style={{ position: "relative", width: "100%" }}>
-          <AI_SearchLayout />
+          <Box style={{ display: "flex", flexDirection: "column-reverse" }}>
+            <Grid
+              size={{ xs: 6, md: 8 }}
+              style={{
+                display: "flex",
+                justifyContent: "end",
+                marginBottom: "6px",
+              }}
+            >
+              {prompt !== "" ? (
+                <Chip label={prompt} className="chatPrompt" />
+              ) : (
+                "Typing..."
+              )}
+            </Grid>
+            <Grid
+              size={{ xs: 6, md: 8 }}
+              style={{
+                display: "flex",
+                justifyContent: "end",
+                marginBottom: "6px",
+              }}
+            >
+              {promptResp !== "" ? (
+                <Chip label={promptResp} className="chatResp" />
+              ) : (
+                "Typing..."
+              )}
+            </Grid>
+          </Box>
           <Box style={{ position: "relative", width: "100%" }}>
             <InputBase
               sx={{

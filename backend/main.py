@@ -10,11 +10,11 @@ import office.office as office
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:3000",
-    "http://localhost:5173"
-]
-
+# origins = [
+#     "http://localhost:3005",
+#     "http://localhost:5173"
+# ]
+origins = ["*"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -45,6 +45,7 @@ def chat_with_llama3(data: Prompt):
     payload = {
         "model": "llama3",
         "prompt": data.prompt,
+         "stream": False
     }
 
     response = requests.post(OLLAMA_URL, json=payload)
@@ -99,31 +100,68 @@ scheduler.start()
 
 
 #---------------------- Get IP config geolocation ---------------------- #
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from playwright.async_api import async_playwright
-exteranlURL = "https://zingnext.zinghr.com/portal/tna"
+from dotenv import load_dotenv
+from openai import OpenAI
+import os
 
-import asyncio
-asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+load_dotenv()
 
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-import asyncio
-from fastapi import FastAPI
-from playwright.async_api import async_playwright
+class AIMessage(BaseModel):
+    message: str
 
-asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
-app = FastAPI()
+@app.post("/ai")
+async def ai_chat(data: AIMessage):
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "user", "content": data.message}
+            ]
+        )
 
-@app.get("/run-zinghr")
-async def run_script():
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
-        page = await browser.new_page()
+        return {
+            "reply": response.choices[0].message.content
+        }
 
-        await page.goto("https://www.zinghr.com/")
-        # do your automation here...
+    except Exception as e:
+        return {"error": str(e)}
 
-        await browser.close()
+#---------------------- Get IP config geolocation ---------------------- #
+from pydantic import BaseModel
+from playwright.sync_api import sync_playwright
+from ai_parser import parse_command_to_selector
+class CommandRequest(BaseModel):
+    url: str
+    prompt: str
 
-    return {"status": "done"}
+print("Server router loaded...")
+
+@app.post("/execute")
+def execute_command(req: CommandRequest):
+    selector, action_text = parse_command_to_selector(req.prompt)
+
+    script = ""
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=False)
+        page = browser.new_page()
+        page.goto(req.url)
+
+        if selector:
+            try:
+                page.wait_for_selector(selector, timeout=5000)
+                page.click(selector)
+                script = f"Clicked element: {selector}"
+            except Exception as e:
+                script = f"Error: {str(e)}"
+        else:
+            script = "No element found"
+
+        browser.close()
+
+    return {
+        "action": action_text,
+        "script": script
+    }

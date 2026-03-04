@@ -24,18 +24,24 @@ aside .MuiListItemButton-root {
 aside .Mui-selected svg {
   fill: #fff;
 }
-.chatResp {
-  background-color: #edf0f7 !important;
+.chatResp,
+.chatPrompt {
   position: relative;
   border-radius: 5px !important;
   font-size: 14px !important;
+  height: auto !important;
+  /* overflow: auto; */
+  text-overflow: ellipsis;
+  white-space: break-spaces;
+  text-align: left;
+  padding: 6px 10px !important;
+}
+.chatResp {
+  background-color: #edf0f7 !important;
 }
 .chatPrompt {
   background-color: #487fff !important;
   color: #fff !important;
-  position: relative;
-  border-radius: 5px !important;
-  font-size: 14px !important;
 }
 .chatPrompt::before {
   content: "";
@@ -66,7 +72,7 @@ aside .Mui-selected svg {
   height: 20px;
   z-index: 9;
   border-radius: 0 0 20px 0;
-  background: #f5f6fa;
+  background: #ffffff;
 }
 .chatResp::after {
   content: "";
